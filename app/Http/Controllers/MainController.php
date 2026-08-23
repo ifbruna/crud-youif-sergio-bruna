@@ -6,5 +6,9 @@ use Illuminate\Http\Request;
 
 class MainController
 {
-    //
+    function index() {
+        
+        return view('cadastro-midia');
+    
+    }
 }
