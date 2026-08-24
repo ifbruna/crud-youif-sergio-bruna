@@ -5,7 +5,7 @@
     <title>YOUIF</title>
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}">
-    <link rel="shortcut icon" href="{{ asset('assets/img/youif_logo.png') }}" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('assets/images/youif_logo.png') }}" type="image/png">
 </head>
 
 <body>
