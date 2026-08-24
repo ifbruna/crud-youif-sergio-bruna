@@ -1,4 +1,4 @@
-@extends('layouts.main_layout')
+@extends('layouts.main-layout')
 
 @section('content')
     <div class="container mt-5">
@@ -7,7 +7,7 @@
                 <div class="card p-5">
 
                     <div class="text-center p-3">
-                        <img src="{{ asset('assets/img/youif_logo.png') }}"
+                        <img src="{{ asset('assets/images/youif_logo.png') }}"
                              alt="youif logo"
                              width="200px"
                              height="200px">
@@ -16,12 +16,12 @@
                     <div class="row justify-content-center">
                         <div class="col-md-10 col-12">
 
-                            <form action="#" method="POST" novalidate>
+                            <form action="{{ route('login_submit') }}" method="POST" novalidate>
                                 @csrf
 
                                 <div class="mb-3">
-                                    <label for="text_username" class="form-label">
-                                        Usuário
+                                    <label for="text_email" class="form-label">
+                                        E-mail
                                     </label>
 
                                     <div class="input-group">
@@ -32,11 +32,11 @@
                                         <input
                                             type="text"
                                             class="form-control"
-                                            name="text_username"
-                                            value="{{ old('text_username') }}">
+                                            name="text_email"
+                                            value="{{ old('text_email') }}">
                                     </div>
 
-                                    @error('text_username')
+                                    @error('text_email')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -75,9 +75,7 @@
 
                             </form>
 
-                            <div class="col text-center">
-                                <a href="#">Não é cadastrado?</a>
-                            </div>
+                            
 
 
                             @if(session('login_error'))
@@ -88,6 +86,10 @@
 
                         </div>
                     </div>
+
+                    <div class="col text-center">
+                                <a href="{{route('create') }}">Não é cadastrado?</a>
+                            </div>
 
                     <div class="text-center text-secondary mt-3">
                         <small>&copy;Copyright {{ date('Y') }}</small>
