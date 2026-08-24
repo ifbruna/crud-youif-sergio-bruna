@@ -8,7 +8,7 @@ class MainController extends Controller
 {
     function index() {
         
-        return view('cadastro-midia');
+        return view('midia-page');
     
     }
 }
