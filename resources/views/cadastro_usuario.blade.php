@@ -7,7 +7,7 @@
                 <div class="card p-5">
 
                     <div class="text-center p-3">
-                        <img src="{{ asset('assets/img/youif_logo.png') }}"
+                        <img src="{{ asset('assets/images/youif_logo.png') }}"
                              alt="youif logo"
                              width="200px"
                              height="200px">
