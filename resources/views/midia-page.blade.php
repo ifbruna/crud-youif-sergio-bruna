@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @include('partials.top-bar')
+
     <div>
 
         <div class="midia_frame">

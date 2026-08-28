@@ -2,16 +2,6 @@
 
 @section('content')
 
-<div>
-  
-  <div>
-
-    @for ($i = 0; $i < 2; $i++)
-      @include('partials.midia-item')
-    @endfor
-
-  </div>
-
-</div>
+    @include('partials.top-bar')
 
 @endsection

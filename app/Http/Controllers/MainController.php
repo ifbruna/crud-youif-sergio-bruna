@@ -15,6 +15,15 @@ class MainController extends Controller
     {
         return view("home-page");
     }
+
+    public function newMedia() {
+        return view('cadastro-midia');
+    }
+
+    public function viewMedia() {
+        return view('midia-page');
+    }
+
 }
 
 
