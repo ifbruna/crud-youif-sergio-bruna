@@ -43,11 +43,21 @@
             </li>
 
             <li>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{route('history')}}">
                     Histórico
                     <i class="fa-solid fa-clock-rotate-left ms-2"></i>
                 </a>
             </li>
+
+            @if (session()->get('user.permission') === 'admin')
+                <li>
+                <a class="dropdown-item" href="{{ route('admin_dashboard') }}">
+                    Admin
+                    <i class="fa-solid fa-clock-rotate-left ms-2"></i>
+                </a>
+                </li>
+            @endif
+            
         </ul>
     </div>
 

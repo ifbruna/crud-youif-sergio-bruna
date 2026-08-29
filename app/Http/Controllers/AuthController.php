@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Midia;
 
 class AuthController extends Controller
 {
@@ -15,7 +16,7 @@ class AuthController extends Controller
     public function loginSubmit(Request $request){
         $request->validate(
             [
-                'text_email' => 'required|min:10',
+                'text_email' => 'required|min:10|email',
                 'text_password' => 'required|min:6',
             ],
             [
@@ -52,8 +53,10 @@ class AuthController extends Controller
             'user' => [
                 'id' => $user->id,
                 'email' => $user->email,
+                'permission' => $user->permission,
             ]
         ]);
+
 
         return redirect('/');
 
@@ -66,12 +69,13 @@ class AuthController extends Controller
 
      public function createSubmit(Request $request){
         $request->validate([
-            'text_email' => 'required|min:6|max:200',
+            'text_email' => 'required|min:6|max:200|email',
             'text_name' => 'required|min:3|max:3000',
             'text_password' => 'required|min:6',
         ], [
             'text_email.required' => 'O e-mail é obrigatório.',
             'text_email.min' => 'O email deve ter pelo menos :min caracteres.',
+            'text_email.email' => 'O campo de e-mail deve conter um endereço válido.',
             'text_name.required' => 'O Nome e sobrenome deve ter no máximo :max caracteres.',
             'text_name.min' => 'O nome e sobremone é obrigatória.',
             'text_password.required' => 'A senha é obrigatória',
@@ -92,16 +96,7 @@ class AuthController extends Controller
         'user' => [
         'id' => $user->id,
         'email' => $user->email,
-            ]
-        ]);
-
-
-        $user->save();
-
-        session([
-            'user' => [
-                'id' => $user->id,
-                'email' => $user->email,
+        'permission' => $user->permission,
             ]
         ]);
 
@@ -115,6 +110,7 @@ class AuthController extends Controller
 
        return redirect()->route('login');
     }
+
 
 
 }
