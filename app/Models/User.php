@@ -4,21 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Model
 {
-  use HasFactory;
+  use HasFactory, SoftDeletes;
     protected $fillable = [
         'email',
         'name',
         'password',
         'permission',
-        
+        'image'
     ];
 
 
     public function medias()
     {
-        return $this->hasMany(Media::class);
+        return $this->belongsToMany(Media::class, 'play')
+                ->withPivot('last_time_played', 'last_timestamps', 'is_liked')
+                ->orderByPivot('last_time_played', 'desc');
     }
 }
