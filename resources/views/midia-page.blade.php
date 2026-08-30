@@ -3,32 +3,28 @@
 @section('content')
 
     @include('partials.top-bar')
+    
+    <div class="card mx-2">
+        <div class="card-img-top d-flex flex-row justify-content-center">
+            @if ($media->type === "video")
+                <video controls src="{{ asset('storage/'.$media->file) }}"></video>
+            @elseif ($media->type === "audio")
 
-    <div>
+                <div class="row w-50 bg-dark">
+                    <img src="{{ asset('storage/'.$media->image) }}">
+                    <audio controls src="{{ asset('storage/'.$media->file) }}"></audio>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    {{-- <div>
 
         <div class="midia_frame">
-
-            {{-- <video src="{{ asset('uploaded/midia/videos/key.mp4') }}"></video> --}}
-
-            {{-- <audio 
-                src="{{ asset('uploaded/midia/audios/dry_hands.mp3') }}" 
-                controls
-                autoplay
-            ></audio> --}}
 
             <video width="500" height="500" autoplay>
                 <source  src="{{ asset('uploaded/midia/videos/cat_walking.mp4') }}" type="video/mp4">
             </video>
-
-            <div class="time_bar">
-                <i class="fa-solid fa-play"></i>
-
-                <i class="fa-solid fa-backward-step"></i>
-                <i class="fa-solid fa-forward-step"></i>
-
-                <i class="fa-solid fa-volume-high"></i>
-                <p>0:00 / 0:00</p>
-            </div>
 
         </div>
 
@@ -55,6 +51,6 @@
             Vivamus sem lectus, fermentum a ex non, laoreet varius arcu. Sed ac nulla posuere, vehicula dui ac, lobortis ipsum. Curabitur eget libero ut nibh porttitor gravida quis a leo. Sed sit amet dictum orci. Pellentesque eu tortor non ipsum malesuada efficitur a pulvinar quam. Nam congue, diam id dignissim tincidunt, felis diam malesuada leo, ut rhoncus ante nibh id dolor. Mauris ultricies malesuada ipsum vitae consequat. Donec eget posuere justo.
         </p>
 
-    </div>
+    </div> --}}
 
 @endsection

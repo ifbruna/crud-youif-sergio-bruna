@@ -18,10 +18,17 @@ class User extends Model
     ];
 
 
-    public function medias()
+    public function createdMedia()
     {
-        return $this->belongsToMany(Media::class, 'play')
-                ->withPivot('last_time_played', 'last_timestamps', 'is_liked')
-                ->orderByPivot('last_time_played', 'desc');
+        return $this
+            ->hasMany(Media::class, 'author_id');
+    }
+
+
+    public function playedMedia()
+    {
+        return $this
+            ->belongsToMany(Media::class, 'play')
+            ->withPivot('last_time_played', 'is_liked');
     }
 }

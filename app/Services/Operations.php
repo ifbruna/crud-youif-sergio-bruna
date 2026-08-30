@@ -7,7 +7,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 class Operations
 {
 
-     public static function decryptId($value)
+    public static function decryptId($value)
     {
         try {
             return Crypt::decrypt($value);
@@ -16,7 +16,7 @@ class Operations
         }
     }
 
-       public static function encryptId($value)
+    public static function encryptId($value)
     {
         return Crypt::encrypt($value);
     }

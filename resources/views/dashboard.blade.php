@@ -1,11 +1,15 @@
 @extends('layouts.main-layout')
+
 @include('partials.top-bar')
+
 @section('content')
 
 <div class="container mt-5">
     <h2 class="mb-4">
         <i class="fa-solid fa-shield-halved me-2"></i>Painel Admin
     </h2>
+    
+    <hr>
 
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -17,10 +21,12 @@
     <h4 class="mt-4 mb-3">
         <i class="fa-solid fa-users me-2"></i>Usuários
     </h4>
+
     <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle">
-            <thead class="table-dark">
-                <tr>
+    
+        <table class="table table-hover table-striped table-secondary align-middle">
+            <thead>
+                <tr class="table-dark">
                     <th>ID</th>
                     <th>E-mail</th>
                     <th>Nome</th>
@@ -29,7 +35,7 @@
                     <th>Ação</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="table-group-divider">
                 @foreach($users as $user)
                 <tr class="{{ $user->deleted_at ? 'table-danger' : '' }}">
                     <td>{{ $user->id }}</td>
@@ -43,18 +49,26 @@
                             <span class="badge bg-success">Ativo</span>
                         @endif
                     </td>
-                    <td>
+                    <td class="justify-content-center">
                         @if($user->deleted_at)
                             <a href="{{ route('admin_restore_user', $user->id) }}"
-                               class="btn btn-sm btn-success">
+                                class="btn btn-sm btn-success">
                                 <i class="fa-solid fa-rotate-left me-1"></i>Restaurar
+                            </a>
+                            <a href="#"
+                                class="btn btn-sm btn-danger bg-dark">
+                                <i class="fa-solid fa-trash me-1"></i>Deletar Permanentemente
                             </a>
                         @else
                             <a href="{{ route('admin_delete_user', $user->id) }}"
-                               class="btn btn-sm btn-danger">
+                                class="btn btn-sm btn-danger">
                                 <i class="fa-solid fa-trash me-1"></i>Deletar
                             </a>
                         @endif
+                        <a href="#"
+                            class="btn btn-sm btn-info">
+                            <i class="fa-solid fa-pen"></i>Editar
+                        </a>
                     </td>
                 </tr>
                 @endforeach
@@ -65,20 +79,19 @@
     <h4 class="mt-5 mb-3">
         <i class="fa-solid fa-film me-2"></i>Mídias
     </h4>
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Título</th>
-                    <th>Tipo</th>
-                    <th>Postado em</th>
-                    <th>Status</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($medias as $media)
+
+    <table class="table table-hover table-striped table-secondary align-middle">
+        <thead>
+            <tr class="table-dark">
+                <th>ID</th>
+                <th>Título</th>
+                <th>Tipo</th>
+                <th>Postado em</th>
+                <th>Status</th>
+                <th>Ação</th>
+        </thead>
+        <tbody class="table-group-divider">
+            @foreach($medias as $media)
                 <tr class="{{ $media->deleted_at ? 'table-danger' : '' }}">
                     <td>{{ $media->id }}</td>
                     <td>{{ $media->title }}</td>
@@ -97,17 +110,23 @@
                                class="btn btn-sm btn-success">
                                 <i class="fa-solid fa-rotate-left me-1"></i>Restaurar
                             </a>
+                            <a href="#"
+                               class="btn btn-sm btn-danger bg-dark">
+                                <i class="fa-solid fa-trash me-1"></i>Deletar Permanentemente
+                            </a>
                         @else
                             <a href="{{ route('admin_delete_media', $media->id) }}"
                                class="btn btn-sm btn-danger">
                                 <i class="fa-solid fa-trash me-1"></i>Deletar
                             </a>
                         @endif
+                        <a href="#"
+                            class="btn btn-sm btn-info">
+                            <i class="fa-solid fa-pen"></i>Editar
+                        </a>
                     </td>
                 </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
+            @endforeach
+        </tbody>
+    </table>
 @endsection

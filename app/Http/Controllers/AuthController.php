@@ -93,14 +93,14 @@ class AuthController extends Controller
         $user->save();
 
         session([
-        'user' => [
-        'id' => $user->id,
-        'email' => $user->email,
-        'permission' => $user->permission,
+            'user' => [
+                'id' => $user->id,
+                'email' => $user->email,
+                'permission' => $user->permission,
             ]
         ]);
 
-    return redirect()->route('home_page');
+        return redirect()->route('home_page');
     
     }
 
