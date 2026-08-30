@@ -4,31 +4,10 @@
 
 @section('form-content')
 
-    <form action="#" method="POST" novalidate>
+    <form action="{{ route('submit_new_media') }}" method="POST" novalidate autocomplete="off" enctype="multipart/form-data">
         @csrf
-
-        <div class="mb-3">
-            <label for="media_type" class="form-label">
-                Tipo do Conteúdo
-            </label>
-
-            <div class="input-group">
-                <span class="input-group-text text-danger">
-                    <i class="fa-solid fa-user"></i>
-                </span>
-
-                <select name="media_type" id="media_type" class="form-select">
-                    <option selected hidden>Selecione um tipo</option>
-                    <option value="video">Vídeo</option>
-                    <option value="audio">Audio</option>
-                </select>
-            </div>
-
-            @error('media_type')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-        </div>
+        
+        <input type="hidden" name="media_author_id" id="media_author_id" value="{{ session()->get('user.id') }}">
 
         <div class="mb-3">
             <label for="media_title" class="form-label">
@@ -53,6 +32,27 @@
             @enderror
         </div>
 
+        <div class="mb-3">
+            <label for="media_description" class="form-label">
+            Descrição
+            </label>
+
+            <div class="input-group">
+                <span class="input-group-text text-danger">
+                    <i class="fa-solid fa-id-card"></i>
+                </span>
+
+                <textarea 
+                    name="media_description" 
+                    id="media_description" 
+                    class="form-control"
+                >{{ old('media_description') }}</textarea>
+            </div>
+
+            @error('media_description')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
 
         <div class="mb-3">
             <label for="media_image" class="form-label">
@@ -80,8 +80,8 @@
 
 
         <div class="mb-3">
-            <label for="media_image" class="form-label">
-            Imagem
+            <label for="media_file" class="form-label">
+            Arquivo
             </label>
 
             <div class="input-group">
@@ -92,13 +92,13 @@
                 <input
                     type="file"
                     class="form-control"
-                    name="media_image"
-                    accept="image/*"
-                    value="{{ old('media_image') }}"
+                    name="media_file"
+                    accept="video/*, audio/*"
+                    value="{{ old('media_file') }}"
                 >
             </div>
 
-            @error('media_image')
+            @error('media_file')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
