@@ -1,5 +1,9 @@
 @extends('layouts.main-layout')
 
+@use('Illuminate\Support\Carbon')
+@use('App\Services\Operations')
+@use('App\Models\User')
+
 @section('content')
 
     <div class="container mt-5">
@@ -12,7 +16,7 @@
             <div class="card mb-3">
                 <div class="row g-0 align-items-center">
                     <div class="col-md-2">
-                        <img src="{{ asset($media->image) }}"
+                        <img src="{{ asset('storage/'.$media->image) }}"
                             class="img-fluid rounded-start"
                             style="height: 100px; object-fit: cover; width: 100%"
                             alt="{{ $media->title }}"
@@ -24,7 +28,7 @@
                             <p class="card-text text-secondary mb-1">
                                 <small>
                                     <i class="fa-solid fa-calendar me-1"></i>
-                                    Assistido em: {{ \Carbon\Carbon::parse($media->pivot->last_time_played)->format('d/m/Y H:i') }}
+                                    Assistido em: {{ Carbon::parse($media->pivot->last_time_played)->format('d/m/Y H:i') }}
                                 </small>
                             </p>
                             <p class="card-text text-secondary">
@@ -36,7 +40,7 @@
                         </div>
                     </div>
                     <div class="col-md-2 text-center">
-                        <a href="{{ route('view_media', $media->id) }}"
+                        <a href="{{ route('view_media', Operations::encryptId($media->id)) }}"
                         class="btn btn-primary btn-sm">
                             <i class="fa-solid fa-play me-1"></i>Assistir
                         </a>
