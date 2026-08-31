@@ -87,32 +87,113 @@ class MainController extends Controller
         ]);
     }
 
+        public function adminEditUser($id)
+    {
+        $user = User::withTrashed()->findOrFail(Operations::decryptId($id));
+        return view('cadastro-usuario', ['editUser' => $user]);
+    }
+
+    public function adminEditUserSubmit(Request $request, $id)
+    {
+        $request->validate([
+            'text_email'    => 'required|email|max:200',
+            'text_name'     => 'required|min:3|max:50',
+            'text_password' => 'nullable|min:6',
+        ]);
+
+        $user             = User::withTrashed()->findOrFail(Operations::decryptId($id));
+        $user->email      = $request->text_email;
+        $user->name       = $request->text_name;
+        $user->permission = $request->text_permission ?? $user->permission;
+
+        if ($request->filled('text_password')) {
+            $user->password = bcrypt($request->text_password);
+        }
+
+        $user->save();
+
+        return redirect()->route('admin_dashboard')->with('success', 'Usuário atualizado.');
+    }
+
     public function adminDeleteUser($id)
     {
-        User::findOrFail($id)->delete();
-        return redirect()->route('admin_dashboard')
-                         ->with('success', 'Usuário deletado.');
+        User::findOrFail(Operations::decryptId($id))->delete();
+        return redirect()->route('admin_dashboard')->with('success', 'Usuário deletado.');
     }
 
     public function adminRestoreUser($id)
     {
-        User::withTrashed()->findOrFail($id)->restore();
-        return redirect()->route('admin_dashboard')
-                         ->with('success', 'Usuário restaurado.');
+        User::withTrashed()->findOrFail(Operations::decryptId($id))->restore();
+        return redirect()->route('admin_dashboard')->with('success', 'Usuário restaurado.');
+    }
+
+    public function adminForceDeleteUser($id)
+    {
+        User::withTrashed()->findOrFail(Operations::decryptId($id))->forceDelete();
+        return redirect()->route('admin_dashboard')->with('success', 'Usuário deletado permanentemente.');
+    }
+
+    public function adminEditMedia($id)
+    {
+        $media = Media::withTrashed()->findOrFail(Operations::decryptId($id));
+        return view('cadastro-midia', ['editMedia' => $media]);
+    }
+
+    public function adminEditMediaSubmit(Request $request, $id)
+    {
+        $request->validate([
+            'media_title'       => 'required|max:200',
+            'media_description' => 'nullable',
+            'media_image'       => 'nullable|image',
+            'media_file'        => 'nullable|mimetypes:video/*,audio/*',
+        ]);
+
+        $media              = Media::withTrashed()->findOrFail(Operations::decryptId($id));
+        $media->title       = $request->media_title;
+        $media->description = $request->media_description;
+
+        if ($request->hasFile('media_image')) {
+            $media->image = Storage::disk('public')
+                                    ->putFile('uploaded/images', $request->file('media_image'));
+        }
+
+        if ($request->hasFile('media_file')) {
+            $mediaFile = $request->file('media_file');
+            $mediaType = $mediaFile->getMimeType();
+
+            if (str_contains($mediaType, 'video/')) {
+                $media->type = 'video';
+            } elseif (str_contains($mediaType, 'audio/')) {
+                $media->type = 'audio';
+            } else {
+                return redirect()->back()->withErrors(['invalidFileType' => 'Tipo de arquivo inválido']);
+            }
+
+            $media->file = Storage::disk('public')
+                                ->putFile('uploaded/media', $mediaFile);
+        }
+
+        $media->save();
+
+        return redirect()->route('admin_dashboard')->with('success', 'Mídia atualizada.');
     }
 
     public function adminDeleteMedia($id)
     {
-        Media::findOrFail($id)->delete();
-        return redirect()->route('admin_dashboard')
-                         ->with('success', 'Mídia deletada.');
+        Media::findOrFail(Operations::decryptId($id))->delete();
+        return redirect()->route('admin_dashboard')->with('success', 'Mídia deletada.');
     }
 
     public function adminRestoreMedia($id)
     {
-        Media::withTrashed()->findOrFail($id)->restore();
-        return redirect()->route('admin_dashboard')
-                         ->with('success', 'Mídia restaurada.');
+        Media::withTrashed()->findOrFail(Operations::decryptId($id))->restore();
+        return redirect()->route('admin_dashboard')->with('success', 'Mídia restaurada.');
+    }
+
+    public function adminForceDeleteMedia($id)
+    {
+        Media::withTrashed()->findOrFail(Operations::decryptId($id))->forceDelete();
+        return redirect()->route('admin_dashboard')->with('success', 'Mídia deletada permanentemente.');
     }
 
 }
