@@ -9,7 +9,7 @@
                 height="80px"
             >
 
-            <div class="d-flex flex-row h4 align-items-center">
+            <div class="d-flex flex-row h4 align-items-center mb-0">
 
                 <span class="text-danger">A You</span>
                 <span class="text-success">IF&nbsp;</span>

@@ -1,7 +1,5 @@
 @extends('layouts.form-layout')
 
-@include('partials.top-bar')
-
 @section('form-content')
 
     <form action="{{ route('submit_new_media') }}" method="POST" novalidate autocomplete="off" enctype="multipart/form-data">

@@ -1,20 +1,42 @@
 @extends('layouts.main-layout')
 
-@section('content')
+@use('Illuminate\Support\Carbon')
 
-    @include('partials.top-bar')
+@section('content')
     
     <div class="card mx-2">
-        <div class="card-img-top d-flex flex-row justify-content-center">
-            @if ($media->type === "video")
-                <video controls src="{{ asset('storage/'.$media->file) }}"></video>
-            @elseif ($media->type === "audio")
+        <div class="card-img-top d-flex flex-row justify-content-center bg-dark">
+            <div class="row w-50">
+                @if ($media->type === "video")
+                    <video controls src="{{ asset('storage/'.$media->file) }}"></video>
+                @elseif ($media->type === "audio")
 
-                <div class="row w-50 bg-dark">
                     <img src="{{ asset('storage/'.$media->image) }}">
                     <audio controls src="{{ asset('storage/'.$media->file) }}"></audio>
+                @endif
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header align-items-center">
+                <h5 class="card-title">Titulo da Midia</h2>
+                <div class="d-flex align-items-center gap-2">
+                    <img src="{{ asset('assets/images/unknownuser.jpg') }}" class="rounded" style="width: 40px; height: 40px;" alt="">
+                    <p class="mb-0 fs-5">{{ $media->user->name }}</p>
+
+                    <div class="d-flex align-items-center gap-2">
+                        <p class="mb-0 fs-5">Likes: 0</p>
+                        <i class="fa-regular fa-thumbs-up fa-xl"></i>
+                        <i class="fa-solid fa-thumbs-up fa-xl"></i>
+                    </div>
                 </div>
-            @endif
+            </div>
+            <div class="card-text p-2 px-3">
+                <p>
+                    0 Visualizações &nbsp;{{ Carbon::parse($media->posted_at)->format('j \d\e M. \d\e Y') }}
+                    </br>
+                    {{ $media->description }}
+                </p>
+            </div>
         </div>
     </div>
 

@@ -19,6 +19,7 @@ Route::middleware([CheckIsLogged::class])->group(function () {
 Route::middleware([CheckIsNotLogged::class])->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login_submit', [AuthController::class, 'loginSubmit'])->name('login_submit');
+
     Route::get('/create', [AuthController::class, 'create'])->name('create');
     Route::post('/create_submit', [AuthController::class, 'createSubmit'])->name('create_submit');
 });
@@ -26,6 +27,7 @@ Route::middleware([CheckIsNotLogged::class])->group(function () {
 
 Route::middleware([CheckIsLogged::class, CheckIsAdmin::class])->group(function () {
     Route::get('/admin', [MainController::class, 'adminDashboard'])->name('admin_dashboard');
+    
     Route::get('/admin/delete_user/{id}',   [MainController::class, 'adminDeleteUser'])->name('admin_delete_user');
     Route::get('/admin/restore_user/{id}',  [MainController::class, 'adminRestoreUser'])->name('admin_restore_user');
     Route::get('/admin/delete_media/{id}',  [MainController::class, 'adminDeleteMedia'])->name('admin_delete_media');

@@ -1,7 +1,5 @@
 @extends('layouts.main-layout')
 
-@include('partials.top-bar')
-
 @section('content')
 
     <div class="container mt-5">
