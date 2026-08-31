@@ -1,7 +1,7 @@
 @use(App\Services\Operations)
 @extends('layouts.main-layout')
 
-@include('partials.top-bar')
+@use('Illuminate\Support\Carbon')
 
 @section('content')
 
@@ -93,7 +93,7 @@
                     <td>{{ $media->id }}</td>
                     <td>{{ $media->title }}</td>
                     <td>{{ $media->type }}</td>
-                    <td>{{ $media->posted_at ? \Carbon\Carbon::parse($media->posted_at)->format('d/m/Y H:i') : '—' }}</td>
+                    <td>{{ Carbon::parse($media->posted_at)->format('d/m/Y - H:i') }}</td>
                     <td>
                         @if($media->deleted_at)
                             <span class="badge bg-danger">Deletada</span>

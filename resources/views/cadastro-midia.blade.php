@@ -1,8 +1,6 @@
 @use(App\Services\Operations)
 @extends('layouts.form-layout')
 
-@include('partials.top-bar')
-
 @section('form-content')
 
     <form action="{{ isset($editMedia) ? route('admin_edit_media_submit', Operations::encryptId($editMedia->id)) : route('submit_new_media') }}" 

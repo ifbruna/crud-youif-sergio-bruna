@@ -17,6 +17,7 @@ Route::middleware([CheckIsLogged::class])->group(function () {
 Route::middleware([CheckIsNotLogged::class])->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login_submit', [AuthController::class, 'loginSubmit'])->name('login_submit');
+
     Route::get('/create', [AuthController::class, 'create'])->name('create');
     Route::post('/create_submit', [AuthController::class, 'createSubmit'])->name('create_submit');
 });

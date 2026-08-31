@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 
@@ -20,6 +21,5 @@ class Operations
     {
         return Crypt::encrypt($value);
     }
-
 
 }
