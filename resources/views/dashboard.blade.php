@@ -1,3 +1,4 @@
+@use(App\Services\Operations)
 @extends('layouts.main-layout')
 
 @include('partials.top-bar')
@@ -51,23 +52,19 @@
                     </td>
                     <td class="justify-content-center">
                         @if($user->deleted_at)
-                            <a href="{{ route('admin_restore_user', $user->id) }}"
-                                class="btn btn-sm btn-success">
+                            <a href="{{ route('admin_restore_user', Operations::encryptId($user->id)) }}" class="btn btn-sm btn-success">
                                 <i class="fa-solid fa-rotate-left me-1"></i>Restaurar
                             </a>
-                            <a href="#"
-                                class="btn btn-sm btn-danger bg-dark">
+                            <a href="{{ route('admin_force_delete_user', Operations::encryptId($user->id)) }}" class="btn btn-sm btn-danger bg-dark">
                                 <i class="fa-solid fa-trash me-1"></i>Deletar Permanentemente
                             </a>
                         @else
-                            <a href="{{ route('admin_delete_user', $user->id) }}"
-                                class="btn btn-sm btn-danger">
+                            <a href="{{ route('admin_delete_user', Operations::encryptId($user->id)) }}" class="btn btn-sm btn-danger">
                                 <i class="fa-solid fa-trash me-1"></i>Deletar
                             </a>
                         @endif
-                        <a href="#"
-                            class="btn btn-sm btn-info">
-                            <i class="fa-solid fa-pen"></i>Editar
+                        <a href="{{ route('admin_edit_user', Operations::encryptId($user->id)) }}" class="btn btn-sm btn-info">
+                            <i class="fa-solid fa-pen"></i> Editar
                         </a>
                     </td>
                 </tr>
@@ -106,23 +103,19 @@
                     </td>
                     <td>
                         @if($media->deleted_at)
-                            <a href="{{ route('admin_restore_media', $media->id) }}"
-                               class="btn btn-sm btn-success">
+                            <a href="{{ route('admin_restore_media', Operations::encryptId($media->id)) }}" class="btn btn-sm btn-success">
                                 <i class="fa-solid fa-rotate-left me-1"></i>Restaurar
                             </a>
-                            <a href="#"
-                               class="btn btn-sm btn-danger bg-dark">
+                            <a href="{{ route('admin_force_delete_media', Operations::encryptId($media->id)) }}" class="btn btn-sm btn-danger bg-dark">
                                 <i class="fa-solid fa-trash me-1"></i>Deletar Permanentemente
                             </a>
                         @else
-                            <a href="{{ route('admin_delete_media', $media->id) }}"
-                               class="btn btn-sm btn-danger">
+                            <a href="{{ route('admin_delete_media', Operations::encryptId($media->id)) }}" class="btn btn-sm btn-danger">
                                 <i class="fa-solid fa-trash me-1"></i>Deletar
                             </a>
                         @endif
-                        <a href="#"
-                            class="btn btn-sm btn-info">
-                            <i class="fa-solid fa-pen"></i>Editar
+                        <a href="{{ route('admin_edit_media', Operations::encryptId($media->id)) }}" class="btn btn-sm btn-info">
+                            <i class="fa-solid fa-pen"></i> Editar
                         </a>
                     </td>
                 </tr>
