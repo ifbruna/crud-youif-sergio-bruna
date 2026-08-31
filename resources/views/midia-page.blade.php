@@ -1,6 +1,14 @@
 @extends('layouts.main-layout')
 
 @use('Illuminate\Support\Carbon')
+@use('App\Services\Operations')
+@use('App\Models\User')
+
+@php
+    $user = User::find(session()->get('user.id'));
+
+    $pivot = $media->users()->where('user_id', $user->id)->first();
+@endphp
 
 @section('content')
     
@@ -24,15 +32,16 @@
                     <p class="mb-0 fs-5">{{ $media->user->name }}</p>
 
                     <div class="d-flex align-items-center gap-2">
-                        <p class="mb-0 fs-5">Likes: 0</p>
-                        <i class="fa-regular fa-thumbs-up fa-xl"></i>
-                        <i class="fa-solid fa-thumbs-up fa-xl"></i>
+                        <p class="mb-0 fs-5">Likes: {{ $media->users()->where('is_liked', true)->count() }}</p>
+                        <a href="{{ route('like_media', ["pivot"=>$pivot, "id"=>Operations::encryptId($media->id)]) }}">
+                            <i class="fa-{{ ($pivot->pivot->is_liked == true) ? "solid" : "regular" }} fa-thumbs-up fa-xl"></i>
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="card-text p-2 px-3">
                 <p>
-                    0 Visualizações &nbsp;{{ Carbon::parse($media->posted_at)->format('j \d\e M. \d\e Y') }}
+                    {{ $media->users()->count() }} {{ ($media->users()->count() == 1) ? "Visualização" : "Visualizações" }} &nbsp;{{ Carbon::parse($media->posted_at)->format('j \d\e M. \d\e Y') }}
                     </br>
                     {{ $media->description }}
                 </p>

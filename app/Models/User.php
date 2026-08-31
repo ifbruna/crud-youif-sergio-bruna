@@ -24,7 +24,6 @@ class User extends Model
             ->hasMany(Media::class, 'author_id');
     }
 
-
     public function playedMedia()
     {
         return $this
