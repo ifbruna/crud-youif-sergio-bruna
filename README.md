@@ -1,3 +1,38 @@
+# 📺 Plataforma de Streaming YouIf
+
+## 📍 Sobre o projeto
+
+Projeto desenvolvido como avaliação da disciplina de desenvolvimento web 2.
+
+O site tem funcionalidades como assistir/ouvir músicas e vídeos, curtir e ver histórico de mídias acessadas.
+
+## 🛠️ Tecnologias utilizadas
+
+- Php
+- Laravel 
+- MySql
+
+## 🎯 Requerimentos do professor
+
+- Relacionamento de duas entidades + crud
+- Middleware
+- Rotas nomeadas
+- Autenticação
+- Validação de formulários
+- Eloquent ORM
+- Views blade
+- Criptografia de identificadores
+- Soft e hard deletes
+
+## 👨‍💻 Autores
+
+Sérgio Lucas
+Bruna Farias
+
+
+## ———————————————————————————————————————
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
