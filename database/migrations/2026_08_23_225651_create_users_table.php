@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            
             $table->string('email')->unique();
             $table->string('name', 50);
             $table->string('password', 200);
@@ -21,6 +20,7 @@ return new class extends Migration
             $table->string('permission',25);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

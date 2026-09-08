@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('medias', function (Blueprint $table) {
             $table->id();
-            
             $table->foreignId('user_id')->constrained();
             $table->string('title', 200);
             $table->text('description')->nullable();
@@ -23,6 +22,7 @@ return new class extends Migration
 
             $table->timestamp('posted_at')->nullable();
             $table->timestamp('updated_at')->nullable();
+            $table->softDeletes();
         });
     }
 

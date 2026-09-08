@@ -137,8 +137,8 @@ class MediaController extends Controller
         $request->validate([
             'media_title'       => 'required|max:200',
             'media_description' => 'nullable',
-            'media_image'       => 'required|image',
-            'media_file'        => 'requred|mimetypes:video/*,audio/*',
+            'media_image'       => 'nullable|image',
+            'media_file'        => 'nullable|mimetypes:video/*,audio/*',
         ]);
 
         $media              = Media::withTrashed()->findOrFail(Operations::decryptId($id));
