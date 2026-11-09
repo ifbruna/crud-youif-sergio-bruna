@@ -26,7 +26,7 @@
         </div>
         <div class="card">
             <div class="card-header align-items-center">
-                <h5 class="card-title">Titulo da Midia</h2>
+                <h5 class="card-title">{{ $media->title }}</h2>
                 <div class="d-flex align-items-center gap-2">
                     <img src="{{ asset('assets/images/unknownuser.jpg') }}" class="rounded" style="width: 40px; height: 40px;" alt="">
                     <p class="mb-0 fs-5">{{ $media->user->name }}</p>
