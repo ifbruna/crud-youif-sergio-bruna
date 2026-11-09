@@ -22,7 +22,6 @@ return new class extends Migration
 
             $table->timestamp('posted_at')->nullable();
             $table->timestamp('updated_at')->nullable();
-            $table->softDeletes();
         });
     }
 
