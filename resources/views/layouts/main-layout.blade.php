@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt_br" data-bs-theme="dark">
+<html lang="pt-BR" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <title>YOUIF</title>

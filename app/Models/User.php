@@ -30,4 +30,23 @@ class User extends Model
             ->belongsToMany(Media::class, 'play')
             ->withPivot('last_time_played', 'is_liked');
     }
+
+    public function subject()
+    {
+        return $this
+            ->belongsTo(Subject::class);
+    }
+
+    protected static function booted(): void
+{
+    static::deleting(function (User $user) {
+        if (! $user->isForceDeleting()) {
+            $user->createdMedia()->delete();
+        }
+    });
+
+    static::restoring(function (User $user) {
+        $user->createdMedia()->onlyTrashed()->restore();
+    });
+}
 }
