@@ -34,6 +34,8 @@ Route::middleware([CheckIsLogged::class, CheckIsAdmin::class])->group(function (
 
     Route::get('/admin', [MainController::class, 'adminDashboard'])->name('admin_dashboard');
     Route::get('/admin/logs', [MainController::class, 'activityLogs'])->name('admin_logs');
+    Route::get('/admin/logs/download', [MainController::class, 'downloadLogs'])->name('download_logs');
+    Route::get('/admin/logs/pdf', [MainController::class, 'viewPdf']);
 
     Route::controller(MediaController::class)->group(function (){
 

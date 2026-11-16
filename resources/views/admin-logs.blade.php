@@ -8,9 +8,17 @@
             <h2 class="mb-0">
                 <i class="fa-solid fa-clipboard-list me-2"></i>Logs dos alunos
             </h2>
-            <a href="{{ route('admin_dashboard') }}" class="btn btn-secondary">
-                <i class="fa-solid fa-arrow-left me-1"></i>Voltar ao Admin
-            </a>
+            <div>
+                @if (count($activities) > 0)
+                    <a href="{{ route('download_logs') }}" class="btn btn-secondary">
+                        <i class="fa-solid fa-download"></i>&nbsp;Baixar relatório
+                    </a>
+                @endif
+                
+                <a href="{{ route('admin_dashboard') }}" class="btn btn-secondary">
+                    <i class="fa-solid fa-arrow-left me-1"></i>&nbsp;Voltar ao Admin
+                </a>
+            </div>
         </div>
 
         <hr>
