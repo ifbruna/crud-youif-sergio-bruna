@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('image',255);
             $table->string('file',255);
             $table->string('type',25);
-
+    
             $table->timestamp('posted_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

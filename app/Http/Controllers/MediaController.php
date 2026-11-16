@@ -22,7 +22,15 @@ class MediaController extends Controller
         }
         else {
             $media->users()->updateExistingPivot($user->id, ['last_time_played'=>Carbon::now()]);
-        };
+        }
+
+       
+        activity()
+            ->causedBy($user)
+            ->performedOn($media)
+            ->event('viewed')
+            ->withProperties(['media_title' => $media->title])
+            ->log('Visualizou uma mídia');
 
         return view('midia-page',["media"=> $media]);
     }
@@ -38,7 +46,16 @@ class MediaController extends Controller
 
         $pivot = $media->users()->where('user_id', $user->id)->first();
 
-        $media->users()->updateExistingPivot($user->id, ['is_liked'=> !$pivot->pivot->is_liked]);
+        $isLiked = !$pivot->pivot->is_liked;
+        $media->users()->updateExistingPivot($user->id, ['is_liked' => $isLiked]);
+
+        activity()
+            ->causedBy($user)
+            ->performedOn($media)
+            ->event($isLiked ? 'liked' : 'unliked')
+            ->withProperties(['media_title' => $media->title])
+            ->log($isLiked ? 'Curtiu uma mídia' : 'Removeu a curtida de uma mídia');
+
         return redirect()->back();
     }
 
@@ -53,7 +70,7 @@ class MediaController extends Controller
             ],
             [
                 'media_title.required' => "O título é obrigatório.",
-                'media_title.min' => "O título deve conter no mínimo :min caractéres.",
+                'media_title.min' => "O título deve conter no mínimo :min caracteres.",
                 
                 'media_image.required' => "O envio de uma imagem é obrigatório.",
                 'media_image.max' => "A imagem deve ser no máximo :max.",
@@ -61,6 +78,14 @@ class MediaController extends Controller
                 'media_file.required' => "O envio de um arquivo é obrigatório."
             ]
         );
+
+        $subject = User::find(session('user.id'))->subject;
+
+        if (!$subject) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['noSubject' => 'Você ainda não possui uma matéria vinculada para postar mídias.']);
+        }
 
         $media = new Media();
 
@@ -99,6 +124,7 @@ class MediaController extends Controller
         }
 
         $media->author_id = $request->media_author_id;
+        $media->subject_id = $subject->id;
         $media->title = $request->media_title;
         $media->description = $request->media_description ?? "\"Nenhuma descrição adicionada...\"";
 

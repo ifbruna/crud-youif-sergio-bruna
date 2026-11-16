@@ -25,14 +25,14 @@
         </div>
         <div class="card">
             <div class="card-header align-items-center">
-                <h5 class="card-title">{{ $media->title }}</h2>
+                <h5 class="card-title">{{ $media->title }}</h5>
                 <div class="d-flex align-items-center gap-2">
                     <img src="{{ asset($media->user->profileImage()) }}" class="rounded" style="width: 40px; height: 40px;" alt="">
                     <p class="mb-0 fs-5">{{ $media->user->name }}</p>
 
                     <div class="d-flex align-items-center gap-2">
                         <p class="mb-0 fs-5">Likes: {{ $media->users()->where('is_liked', true)->count() }}</p>
-                        <a href="{{ route('like_media', ["pivot"=>$pivot, "id"=>Operations::encryptId($media->id)]) }}">
+                        <a href="{{ route('like_media', ["id"=>Operations::encryptId($media->id)]) }}">
                             <i class="fa-{{ ($pivot->pivot->is_liked == true) ? "solid" : "regular" }} fa-thumbs-up fa-xl"></i>
                         </a>
                     </div>
@@ -41,7 +41,7 @@
             <div class="card-text p-2 px-3">
                 <p>
                     {{ $media->users()->count() }} {{ ($media->users()->count() == 1) ? "Visualização" : "Visualizações" }} &nbsp;{{ Carbon::parse($media->posted_at)->format('j \d\e M. \d\e Y') }}
-                    </br>
+                    <br>
                     {{ $media->description }}
                 </p>
             </div>

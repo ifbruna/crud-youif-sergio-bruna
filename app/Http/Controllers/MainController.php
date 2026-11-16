@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Media;
-use App\Services\Operations;
-use Illuminate\Contracts\Encryption\DecryptException;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Subject;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Spatie\Activitylog\Models\Activity;
 
 class MainController extends Controller
 {
-    public function __construct(protected Operations $operations) {}
-
     public function index()
     {
         $medias = Media::all();
@@ -29,15 +25,50 @@ class MainController extends Controller
         return view('history', ['medias' => $medias]);
     }
 
+    // Logs das ações realizadas pelos alunos.
+    public function activityLogs()
+    {
+        $activities = $this->activitiesByStudents();
+        return view('admin-logs', ['activities' => $activities]);
+    }
+
+    public function activitiesByStudents() {
+        $studentsIds = User::withTrashed()
+            ->where('permission', 'user')
+            ->select('id');
+
+        return Activity::query()
+            ->where('causer_type', (new User())->getMorphClass())
+            ->whereIn('causer_id', $studentsIds)
+            ->with(['causer', 'subject'])
+            ->latest()
+            ->paginate(30);
+    }
+
+    public function downloadLogs() {
+        $activities = $this->activitiesByStudents();
+        $pdf = Pdf::loadView("logs-template", ["activities" => $activities])->setPaper("a4", "portrait");
+
+        return $pdf->download("relatorio.pdf");
+    }
+
+    public function viewPdf(){
+        return Pdf::loadView("logs-template", ["activities" => $this->activitiesByStudents()])->setPaper("a4", "portrait")->stream("relatorio.pdf");
+    }
+
     //admin
     public function adminDashboard()
     {
         $users  = User::withTrashed()->get();
         $medias = Media::withTrashed()->get();
+        $subjects = Subject::withTrashed()
+            ->with(['users' => fn ($query) => $query->withTrashed()])
+            ->get();
 
         return view('dashboard', [
-            'users'  => $users,
-            'medias' => $medias,
+            'users'    => $users,
+            'medias'   => $medias,
+            'subjects' => $subjects,
         ]);
     }
 

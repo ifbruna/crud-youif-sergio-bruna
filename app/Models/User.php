@@ -18,7 +18,6 @@ class User extends Model
         'image'
     ];
 
-
     public function createdMedia()
     {
         return $this
@@ -39,4 +38,22 @@ class User extends Model
     public static function getProfileImage(?String $image) : String {
         return $image == null ? "assets/images/". User::$DEFAULT_USER_IMAGE : "storage/$image";
     }
+    public function subject()
+    {
+        return $this
+            ->belongsTo(Subject::class);
+    }
+
+    protected static function booted(): void
+{
+    static::deleting(function (User $user) {
+        if (! $user->isForceDeleting()) {
+            $user->createdMedia()->delete();
+        }
+    });
+
+    static::restoring(function (User $user) {
+        $user->createdMedia()->onlyTrashed()->restore();
+    });
+}
 }

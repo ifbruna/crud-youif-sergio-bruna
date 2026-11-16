@@ -72,6 +72,12 @@
                         <i class="fa-solid fa-user-lock"></i>
                     </a>
                 </li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('admin_logs') }}">
+                        Logs&nbsp;
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    </a>
+                </li>
             @endif
 
             <li>

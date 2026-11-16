@@ -27,4 +27,10 @@ class Media extends Model
             ->belongsToMany(User::class, 'play')
             ->withPivot('last_time_played', 'is_liked');
     }
+
+    public function subject()
+    {
+        return $this
+            ->belongsTo(Subject::class);
+    }
 }
