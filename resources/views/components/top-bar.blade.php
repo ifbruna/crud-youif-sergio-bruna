@@ -1,3 +1,6 @@
+@use('App\Services\Operations')
+@use('App\Models\User')
+
 <div class="d-flex flex-row align-items-center mx-5 mt-2">
     
     <div class="container-fluid d-flex flex-row align-items-center">
@@ -70,9 +73,23 @@
                     </a>
                 </li>
             @endif
+
+            <li>
+                <a class="dropdown-item" href="{{ route('perfil_usuario') }}">
+                    Perfil&nbsp;
+                    <i class="fa-solid fa-circle-user"></i>
+                </a>
+            </li>
             
         </ul>
     </div>
+
+    <a href="{{ route('perfil_usuario') }}" class="ps-5">
+
+        <img src="{{ asset( User::getProfileImage(session()->get("user.image"))) }}" alt="" height="65vh" class="rounded-circle">
+        <p class="text-center pt-1 m-0">{{ session()->get("user.name")}}</p>
+
+    </a>
 
 </div>
 
