@@ -6,9 +6,15 @@
 @section('content')
 
 <div class="container mt-5">
-    <h2 class="mb-4">
-        <i class="fa-solid fa-shield-halved me-2"></i>Painel Admin
-    </h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">
+            <i class="fa-solid fa-shield-halved me-2"></i>Painel Admin
+        </h2>
+
+        <a href="{{ route('new_subject') }}" class="btn btn-secondary">
+            <i class="fa-solid fa-book me-1"></i>Cadastro de matéria
+        </a>
+    </div>
     
     <hr>
 
@@ -86,6 +92,7 @@
                 <th>Postado em</th>
                 <th>Status</th>
                 <th>Ação</th>
+            </tr>
         </thead>
         <tbody class="table-group-divider">
             @foreach($medias as $media)
@@ -122,4 +129,55 @@
             @endforeach
         </tbody>
     </table>
+
+    <h4 class="mt-5 mb-3">
+        <i class="fa-solid fa-book me-2"></i>Matérias
+    </h4>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-striped table-secondary align-middle">
+            <thead>
+                <tr class="table-dark">
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Professores</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                @foreach($subjects as $subject)
+                    <tr class="{{ $subject->deleted_at ? 'table-danger' : '' }}">
+                        <td>{{ $subject->id }}</td>
+                        <td>{{ $subject->name }}</td>
+                        <td>{{ $subject->users->pluck('name')->join(', ') ?: '—' }}</td>
+                        <td>
+                            @if($subject->deleted_at)
+                                <span class="badge bg-danger">Deletada</span>
+                            @else
+                                <span class="badge bg-success">Ativa</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($subject->deleted_at)
+                                <a href="{{ route('admin_restore_subject', Operations::encryptId($subject->id)) }}" class="btn btn-sm btn-success">
+                                    <i class="fa-solid fa-rotate-left me-1"></i>Restaurar
+                                </a>
+                                <a href="{{ route('admin_force_delete_subject', Operations::encryptId($subject->id)) }}" class="btn btn-sm btn-danger bg-dark">
+                                    <i class="fa-solid fa-trash me-1"></i>Deletar Permanentemente
+                                </a>
+                            @else
+                                <a href="{{ route('admin_delete_subject', Operations::encryptId($subject->id)) }}" class="btn btn-sm btn-danger">
+                                    <i class="fa-solid fa-trash me-1"></i>Deletar
+                                </a>
+                            @endif
+                            <a href="{{ route('admin_edit_subject', Operations::encryptId($subject->id)) }}" class="btn btn-sm btn-info">
+                                <i class="fa-solid fa-pen"></i> Editar
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 @endsection

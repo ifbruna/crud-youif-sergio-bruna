@@ -64,11 +64,16 @@
                 <span class="input-group-text text-danger">
                     <i class="fa-solid fa-shield-halved"></i>
                 </span>
-                <select name="text_permission" class="form-select">
+                <select name="text_permission" id="text_permission" class="form-select">
                     <option value="user"  {{ $editUser->permission === 'user'  ? 'selected' : '' }}>User</option>
                     <option value="admin" {{ $editUser->permission === 'admin' ? 'selected' : '' }}>Admin</option>
                 </select>
             </div>
+        </div>
+
+        {{-- só aparece quando a permissão escolhida é admin (professor) --}}
+        <div id="subject_box" class="{{ $editUser->permission === 'admin' ? '' : 'd-none' }}">
+            <x-subject-select :subjects="$subjects" :selected="$editUser->subject?->id" />
         </div>
         @endisset
 
@@ -92,5 +97,19 @@
             <a href="{{ route('login') }}">Já tem cadastro?</a>
         </div>
     @endif
+
+    @isset($editUser)
+        <script>
+            const permission = document.getElementById('text_permission');
+            const subjectBox = document.getElementById('subject_box');
+
+            function toggleSubjectBox() {
+                subjectBox.classList.toggle('d-none', permission.value !== 'admin');
+            }
+
+            permission.addEventListener('change', toggleSubjectBox);
+            toggleSubjectBox();
+        </script>
+    @endisset
 
 @endsection

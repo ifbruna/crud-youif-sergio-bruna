@@ -2,7 +2,6 @@
 
 @use('Illuminate\Support\Carbon')
 @use('App\Services\Operations')
-@use('App\Models\User')
 
 @section('content')
 

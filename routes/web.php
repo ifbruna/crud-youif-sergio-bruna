@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckIsLogged;
 use App\Http\Middleware\CheckIsNotLogged;
@@ -32,6 +33,7 @@ Route::middleware([CheckIsNotLogged::class])->group(function () {
 Route::middleware([CheckIsLogged::class, CheckIsAdmin::class])->group(function () {
 
     Route::get('/admin', [MainController::class, 'adminDashboard'])->name('admin_dashboard');
+    Route::get('/admin/logs', [MainController::class, 'activityLogs'])->name('admin_logs');
 
     Route::controller(MediaController::class)->group(function (){
 
@@ -53,6 +55,18 @@ Route::middleware([CheckIsLogged::class, CheckIsAdmin::class])->group(function (
         Route::get('/admin/edit/user={id}','adminEditUser')->name('admin_edit_user');
 
         Route::post('/admin/edit_submit/user={id}', 'adminEditUserSubmit')->name('admin_edit_user_submit');
+    });
+
+    Route::controller(SubjectController::class)->group(function (){
+        Route::get('/subject/new', 'newSubject')->name('new_subject');
+        Route::post('/subject/new_submit', 'submitNewSubject')->name('submit_new_subject');
+
+        Route::get('/admin/delete/subject={id}', 'adminDelete')->name('admin_delete_subject');
+        Route::get('/admin/restore/subject={id}', 'adminRestore')->name('admin_restore_subject');
+        Route::get('/admin/force_delete/subject={id}', 'adminForceDelete')->name('admin_force_delete_subject');
+        Route::get('/admin/edit/subject={id}', 'adminEdit')->name('admin_edit_subject');
+
+        Route::post('/admin/edit_submit/subject={id}', 'adminEditSubmit')->name('admin_edit_subject_submit');
     });
 
 });

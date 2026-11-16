@@ -20,7 +20,7 @@
                 <div class="container-fluid">{{ $media->user->name }}</div>
               </div>
             </a>
-            <p class="card-text"><small class="text-body-secondary">Postado em {{ date('d/m/Y \á\s H:i:s', strtotime($media->posted_at)) }}</small></p>
+            <p class="card-text"><small class="text-body-secondary">Postado em {{ date('d/m/Y \à\s H:i:s', strtotime($media->posted_at)) }}</small></p>
         </div>
     </div>
 </div>
