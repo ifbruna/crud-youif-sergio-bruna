@@ -3,18 +3,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        @page { size: A4 portrait; margin: 1.5cm; }
+        body { font-family: 'DejaVu Sans', sans-serif; font-size: 12px; color: #222; }
+        h1 { font-size: 22px; margin: 0; color: #1e3a8a; }
+        .cabecalho { border-bottom: 3px solid #1e3a8a; padding-bottom: 10px; margin-bottom: 20px; }
+        table.itens { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        table.itens th { background: #1e3a8a; color: #fff; padding: 8px; text-align: left; }
+        table.itens td { border-bottom: 1px solid #ddd; padding: 8px; }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
 
         <hr>
-
+<div class="cabeçalho">
         <p class="text-secondary">
             Registro das ações realizadas pelos alunos na plataforma.
         </p>
-
+</div>
         <div class="table-responsive">
-            <table class="table table-hover table-striped table-secondary align-middle">
+            <table class="itens">
                 <thead>
                     <tr class="table-dark">
                         <th>Data e hora</th>
@@ -40,7 +49,7 @@
                                 ?? $activity->getProperty('media_title', '—');
                         @endphp
                         <tr>
-                            <td class="text-nowrap">
+                            <td>
                                 {{ $activity->created_at->format('d/m/Y - H:i:s') }}
                             </td>
                             <td>
