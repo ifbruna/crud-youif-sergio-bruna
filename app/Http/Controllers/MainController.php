@@ -61,9 +61,7 @@ class MainController extends Controller
     {
         $users  = User::withTrashed()->get();
         $medias = Media::withTrashed()->get();
-        $subjects = Subject::withTrashed()
-            ->with(['users' => fn ($query) => $query->withTrashed()])
-            ->get();
+        $subjects = Subject::withTrashed()->get();
 
         return view('dashboard', [
             'users'    => $users,

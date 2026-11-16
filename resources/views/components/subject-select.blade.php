@@ -7,7 +7,7 @@
         <span class="input-group-text text-danger">
             <i class="fa-solid fa-book"></i>
         </span>
-        <select name="subject_id" id="subject_id" class="form-select">
+        <select name="subject_id" id="subject_id" class="form-select" multiple>
             <option value="">Nenhuma</option>
             @foreach ($subjects as $subject)
                 <option value="{{ $subject->id }}"

@@ -9,17 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-{
-    Schema::table('users', function (Blueprint $table) {
-        $table->foreignId('subject_id')->nullable()->after('permission')->constrained()->cascadeOnDelete();
-    });
-}
+    public function up(): void {
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignId('subject_id')->nullable()->after('permission')->constrained()->cascadeOnDelete();
+        });
+    }
 
-public function down(): void
-{
-    Schema::table('users', function (Blueprint $table) {
-        $table->dropConstrainedForeignId('subject_id');
-    });
-}
+    public function down(): void {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('subject_id');
+        });
+    }
 };

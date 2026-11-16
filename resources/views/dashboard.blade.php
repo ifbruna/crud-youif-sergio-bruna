@@ -140,7 +140,7 @@
                 <tr class="table-dark">
                     <th>ID</th>
                     <th>Nome</th>
-                    <th>Professores</th>
+                    <th>Descrição</th>
                     <th>Status</th>
                     <th>Ação</th>
                 </tr>
@@ -150,7 +150,7 @@
                     <tr class="{{ $subject->deleted_at ? 'table-danger' : '' }}">
                         <td>{{ $subject->id }}</td>
                         <td>{{ $subject->name }}</td>
-                        <td>{{ $subject->users->pluck('name')->join(', ') ?: '—' }}</td>
+                        <td>{{ $subject->description}}</td>
                         <td>
                             @if($subject->deleted_at)
                                 <span class="badge bg-danger">Deletada</span>

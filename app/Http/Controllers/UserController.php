@@ -55,13 +55,15 @@ class UserController extends Controller
                                 ? $request->subject_id
                                 : null;
 
+        dd($user->subject_id);
+
         if ($request->filled('text_password')) {
             $user->password = bcrypt($request->text_password);
         }
 
-        $user->save();
+        // $user->save();
 
-        return redirect()->route('admin_dashboard')->with('success', 'Usuário atualizado.');
+        // return redirect()->route('admin_dashboard')->with('success', 'Usuário atualizado.');
     }
 
     public function updateSession() {

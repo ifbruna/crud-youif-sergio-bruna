@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('play', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('media_id')->constrained('medias')->cascadeOnDelete();
             $table->timestamp('last_time_played')->useCurrent();
             $table->integer('last_timestamps')->default(0);
