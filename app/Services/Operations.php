@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;

@@ -45,13 +45,13 @@ class AuthController extends Controller
                         ->with('login_error','Email ou senha incorretos!');
             }
         }
-        
-       
             session([
             'user' => [
                 'id' => $user->id,
                 'email' => $user->email,
                 'permission' => $user->permission,
+                'name' => $user->name,
+                'image' => $user->image
             ]
         ]);
 

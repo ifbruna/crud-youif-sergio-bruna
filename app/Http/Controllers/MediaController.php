@@ -65,7 +65,7 @@ class MediaController extends Controller
             [
                 'media_title' => 'required|min:3',
                 'media_description' => 'nullable',
-                'media_image' => 'required',
+                'media_image' => 'required|max:2048',
                 'media_file' => 'required',
             ],
             [
@@ -73,6 +73,7 @@ class MediaController extends Controller
                 'media_title.min' => "O título deve conter no mínimo :min caracteres.",
                 
                 'media_image.required' => "O envio de uma imagem é obrigatório.",
+                'media_image.max' => "A imagem deve ser no máximo :max.",
 
                 'media_file.required' => "O envio de um arquivo é obrigatório."
             ]
@@ -117,17 +118,15 @@ class MediaController extends Controller
 
             $media->file = $mediaFilePath;
             $media->type = $mediaType;
-
         }
         else {
             return redirect()->back()->withErrors(["notFoundMediaFile"=>"Arquivo não enviado"]);
         }
 
-
         $media->author_id = $request->media_author_id;
         $media->subject_id = $subject->id;
         $media->title = $request->media_title;
-        $media->description = $request->media_description ?? "\"...\"";
+        $media->description = $request->media_description ?? "\"Nenhuma descrição adicionada...\"";
 
         $media->save();
 

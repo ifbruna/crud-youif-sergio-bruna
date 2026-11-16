@@ -11,9 +11,14 @@ use App\Http\Middleware\CheckIsNotLogged;
 use App\Http\Middleware\CheckIsAdmin;
 
 Route::middleware([CheckIsLogged::class])->group(function () {
-    Route::get('/', [MainController::class, 'index'])->name('home_page');
+    
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/history', [MainController::class, 'history'])->name('history');
+
+    Route::controller(MainController::class)->group(function () {
+        Route::get('/','index')->name('home_page');
+        Route::get('/user/history', 'history')->name('history');
+        Route::get('/user/profile', 'perfilUsuario')->name('perfil_usuario'); 
+    });
 
     Route::controller(MediaController::class)->group(function (){
         Route::get('/media={id}', 'viewMedia')->name('view_media');
@@ -22,11 +27,13 @@ Route::middleware([CheckIsLogged::class])->group(function () {
 });
 
 Route::middleware([CheckIsNotLogged::class])->group(function () {
-    Route::get('/login', [AuthController::class, 'login'])->name('login');
-    Route::post('/login_submit', [AuthController::class, 'loginSubmit'])->name('login_submit');
+    Route::controller(AuthController::class)->group(function () {
+        Route::get('/login', 'login')->name('login');
+        Route::post('/login_submit', 'loginSubmit')->name('login_submit');
 
-    Route::get('/create', [AuthController::class, 'create'])->name('create');
-    Route::post('/create_submit', [AuthController::class, 'createSubmit'])->name('create_submit');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/create_submit', 'createSubmit')->name('create_submit');
+    });
 });
 
 

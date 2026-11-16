@@ -72,6 +72,10 @@ class MainController extends Controller
         ]);
     }
 
+    function perfilUsuario() {
+        return view("perfil-usuario");
+    }
+
 }
 
 
