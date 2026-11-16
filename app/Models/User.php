@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Model
 {
   use HasFactory, SoftDeletes;
+  public static final String $DEFAULT_USER_IMAGE = "unknown_user.jpg";
     protected $fillable = [
         'email',
         'name',
@@ -16,7 +17,6 @@ class User extends Model
         'permission',
         'image'
     ];
-
 
     public function createdMedia()
     {
@@ -31,6 +31,13 @@ class User extends Model
             ->withPivot('last_time_played', 'is_liked');
     }
 
+    public function profileImage() {
+        return User::getProfileImage($this->image);
+    }
+
+    public static function getProfileImage(?String $image) : String {
+        return $image == null ? "assets/images/". User::$DEFAULT_USER_IMAGE : "storage/$image";
+    }
     public function subject()
     {
         return $this

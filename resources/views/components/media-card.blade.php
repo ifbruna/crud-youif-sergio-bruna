@@ -1,4 +1,6 @@
 @use('App\Services\Operations')
+@use('App\Services\DefaultFiles')
+@use('App\Models\User')
 
 <div class="col">
     <div class="card mb-3" style="max-width: 60rem; max-height: 40rem;">
@@ -15,7 +17,7 @@
         <div class="card-footer">
             <a href="#" draggable="false">
               <div class="d-flex flex-row align-items-center mb-2">
-                <img src="{{ asset('assets/images/unknownuser.jpg') }}" style="max-width: 2rem; max-height: 2rem;" alt="">
+                <img src="{{ asset($media->user->profileImage()) }}" style="max-width: 2rem; max-height: 2rem;" class="rounded circle">
                 
                 <div class="container-fluid">{{ $media->user->name }}</div>
               </div>

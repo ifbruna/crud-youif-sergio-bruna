@@ -63,4 +63,8 @@ class UserController extends Controller
 
         return redirect()->route('admin_dashboard')->with('success', 'Usuário atualizado.');
     }
+
+    public function updateSession() {
+        
+    }
 }
